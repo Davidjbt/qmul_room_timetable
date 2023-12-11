@@ -54,6 +54,8 @@ public class Main {
 
             WebElement viewTimetableBtn = driver.findElement(By.id("bGetTimetable"));
             viewTimetableBtn.click();
+
+//            System.out.println(driver.getPageSource());
         }
     }
 
