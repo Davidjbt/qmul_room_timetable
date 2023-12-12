@@ -1,6 +1,6 @@
 package com.david.qmul_room_timetable.controller;
 
-import com.david.qmul_room_timetable.dto.RoomTimetableSearchQuery;
+import com.david.qmul_room_timetable.dto.RoomTimetableQuery;
 import com.david.qmul_room_timetable.service.RoomTimetableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ public class RoomTimetableController {
     private final RoomTimetableService roomTimetableService;
 
     @PostMapping("/timetable")
-    public String getRoomTimetables(RoomTimetableSearchQuery[] searchQueries) {
+    public String getRoomTimetables(RoomTimetableQuery[] searchQueries) {
         return roomTimetableService.getRoomTimetable(searchQueries);
     }
 }

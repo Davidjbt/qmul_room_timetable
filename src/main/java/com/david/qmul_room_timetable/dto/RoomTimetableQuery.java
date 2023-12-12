@@ -3,7 +3,7 @@ package com.david.qmul_room_timetable.dto;
 import lombok.Data;
 
 @Data
-public class RoomTimetableSearchQuery {
+public class RoomTimetableQuery {
 
     private String building;
     private String[] rooms;
