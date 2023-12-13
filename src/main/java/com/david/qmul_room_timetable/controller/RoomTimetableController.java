@@ -4,6 +4,7 @@ import com.david.qmul_room_timetable.dto.RoomTimetableQuery;
 import com.david.qmul_room_timetable.service.RoomTimetableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,8 @@ public class RoomTimetableController {
     private final RoomTimetableService roomTimetableService;
 
     @PostMapping("/timetable")
-    public String getRoomTimetables(RoomTimetableQuery[] searchQueries) {
+    public String[] getRoomTimetables(@RequestBody RoomTimetableQuery[] searchQueries) throws InterruptedException {
         return roomTimetableService.getRoomTimetable(searchQueries);
     }
+
 }

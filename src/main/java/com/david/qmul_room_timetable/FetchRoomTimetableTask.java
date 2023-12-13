@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.time.LocalDate;
 
@@ -43,7 +44,7 @@ public class FetchRoomTimetableTask implements Runnable {
 
         dropdown = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated((By.id("lbWeeks")))));
         dropdown.deselectByVisibleText("All Weeks");
-        dropdown.selectByVisibleText("This Week");
+        dropdown.selectByVisibleText(this.roomTimetableQuery.getWeek());
 
         String day = String.valueOf(LocalDate.now().getDayOfWeek());
         day = day.charAt(0) + day.substring(1).toLowerCase();
@@ -53,9 +54,11 @@ public class FetchRoomTimetableTask implements Runnable {
         WebElement viewTimetableBtn = driver.findElement(By.id("bGetTimetable"));
         viewTimetableBtn.click();
 
-        this.roomTimetable = driver.getPageSource();
-    }
-}
+        roomTimetable = driver.getPageSource()
+                .replaceAll("\n", "")
+                .replaceAll("\"",  "'");
 
+        driver.close();
+    }
 
 }
