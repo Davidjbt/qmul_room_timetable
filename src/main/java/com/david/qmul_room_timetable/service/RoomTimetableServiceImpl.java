@@ -1,9 +1,10 @@
 package com.david.qmul_room_timetable.service;
 
 import com.david.qmul_room_timetable.FetchRoomTimetableTask;
+import com.david.qmul_room_timetable.GetAllRoomsTask;
+import com.david.qmul_room_timetable.dto.Campus;
 import com.david.qmul_room_timetable.dto.RoomTimetableQuery;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -31,4 +32,8 @@ public class RoomTimetableServiceImpl implements RoomTimetableService {
                 .toList().toArray(new String[0]);
     }
 
+    @Override
+    public Campus[] getAllRooms() throws InterruptedException {
+        return new GetAllRoomsTask().getAllRooms();
+    }
 }
