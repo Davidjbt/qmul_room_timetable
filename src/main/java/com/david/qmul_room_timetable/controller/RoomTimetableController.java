@@ -1,6 +1,7 @@
 package com.david.qmul_room_timetable.controller;
 
 import com.david.qmul_room_timetable.dto.Campus;
+import com.david.qmul_room_timetable.dto.QueryResult;
 import com.david.qmul_room_timetable.dto.RoomTimetableQuery;
 import com.david.qmul_room_timetable.service.RoomTimetableService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ public class RoomTimetableController {
     private final RoomTimetableService roomTimetableService;
 
     @PostMapping("/timetable")
-    public String[] getRoomTimetables(@RequestBody RoomTimetableQuery[] searchQueries) throws InterruptedException {
+    public QueryResult[] getRoomTimetables(@RequestBody RoomTimetableQuery[] searchQueries) throws InterruptedException {
         return roomTimetableService.getRoomTimetable(searchQueries);
     }
 

@@ -1,5 +1,6 @@
 package com.david.qmul_room_timetable;
 
+import com.david.qmul_room_timetable.dto.QueryResult;
 import com.david.qmul_room_timetable.dto.RoomTimetableQuery;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,19 +14,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 @RequiredArgsConstructor
 @Getter
 public class FetchRoomTimetableTask implements Runnable {
 
     private final RoomTimetableQuery roomTimetableQuery;
+
+    private QueryResult queryResult;
     private String roomTimetable;
+    private boolean stylesSheetsFetched = false;
+
+    private final static String URL = "https://timetables.qmul.ac.uk";
+    private final static String[] STYLING_SHEETS = new String[]{"swscustom.css", "activitytype.css"};
 
     @Override
     public void run() {
         WebDriver driver = new ChromeDriver();
 
-        driver.get("https://timetables.qmul.ac.uk/default.aspx");
+        driver.get(URL + "/default.aspx");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         WebElement locationsBtn = driver.findElement(By.id("LinkBtn_locations"));
@@ -57,6 +65,20 @@ public class FetchRoomTimetableTask implements Runnable {
         roomTimetable = driver.getPageSource()
                 .replaceAll("\n", "")
                 .replaceAll("\"",  "'");
+
+        synchronized (this) {
+            if (!stylesSheetsFetched) {
+                stylesSheetsFetched = true;
+                this.queryResult = new QueryResult(this.roomTimetableQuery.getDay(), roomTimetable, new HashMap<>());
+
+                for (String sheet: STYLING_SHEETS) {
+                    driver.get(URL + "/" + sheet);
+                    this.queryResult.resultStyling().put(sheet, driver.getPageSource());
+                }
+            } else {
+                this.queryResult = new QueryResult(this.roomTimetableQuery.getDay(), roomTimetable, null);
+            }
+        }
 
         driver.close();
     }
