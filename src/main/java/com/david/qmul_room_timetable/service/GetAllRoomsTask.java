@@ -1,4 +1,4 @@
-package com.david.qmul_room_timetable;
+package com.david.qmul_room_timetable.service;
 
 import com.david.qmul_room_timetable.dto.Campus;
 import com.david.qmul_room_timetable.dto.Campus.Building;
@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;

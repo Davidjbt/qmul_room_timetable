@@ -1,4 +1,4 @@
-package com.david.qmul_room_timetable;
+package com.david.qmul_room_timetable.service;
 
 import com.david.qmul_room_timetable.dto.QueryResult;
 import com.david.qmul_room_timetable.dto.RoomTimetableQuery;
@@ -13,7 +13,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.HashMap;
 
 @RequiredArgsConstructor
@@ -54,8 +53,7 @@ public class FetchRoomTimetableTask implements Runnable {
         dropdown.deselectByVisibleText("All Weeks");
         dropdown.selectByVisibleText(this.roomTimetableQuery.getWeek());
 
-        String day = String.valueOf(LocalDate.now().getDayOfWeek());
-        day = day.charAt(0) + day.substring(1).toLowerCase();
+        String day = this.roomTimetableQuery.getDay().charAt(0) + this.roomTimetableQuery.getDay().substring(1).toLowerCase();
         dropdown = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated((By.id("lbDays")))));
         dropdown.selectByVisibleText(day);
 

@@ -1,7 +1,5 @@
 package com.david.qmul_room_timetable.service;
 
-import com.david.qmul_room_timetable.FetchRoomTimetableTask;
-import com.david.qmul_room_timetable.GetAllRoomsTask;
 import com.david.qmul_room_timetable.dto.Campus;
 import com.david.qmul_room_timetable.dto.QueryResult;
 import com.david.qmul_room_timetable.dto.RoomTimetableQuery;
